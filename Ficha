@@ -1,0 +1,47 @@
+#include <iostream>
+#include <vector>
+class Ficha {
+    private:
+        char letra;
+    public:
+        Ficha(char l) {
+            letra = l;
+        }
+        char obtenerLetra() {
+            return letra;
+        }
+};
+class Juego {
+    private:
+        std::vector<Ficha> fichas;
+    public:
+        Juego() {
+            char letras[] = {'A', 'B', 'C', 'D', 'E'};
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 3; j++) {
+                    Ficha f(letras[i]);
+                    fichas.push_back(f);
+                }
+            }
+//las letras al azar
+            srand(time(NULL));
+            for (int i = 0; i < 100; i++) {
+                int n1 = rand() %(15-1);
+                int n2 = rand() % (15-1);
+                Ficha temp = fichas[n1];
+                fichas[n1] =fichas[n2];
+                fichas[n2] = temp;
+            }
+        }
+        void imprimirFichas() {
+            for (int i = 0; i < fichas.size(); i++) {
+                std::cout << fichas[i].obtenerLetra() << " ";
+            }
+            std::cout << std::endl;
+        }
+};
+int main() {
+    Juego j;
+    j.imprimirFichas();
+    return 0;
+}
